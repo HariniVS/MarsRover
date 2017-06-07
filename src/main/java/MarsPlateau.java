@@ -1,6 +1,3 @@
-/**
- * Created by harinivs on 06/06/17.
- */
 public class MarsPlateau {
 
     private int lowerRightXCoordinate;
@@ -11,5 +8,22 @@ public class MarsPlateau {
     public MarsPlateau(int upperRightXCoordinate, int upperRightYCoordinate) {
        this.upperRightXCoordinate = upperRightXCoordinate;
        this.upperRightYCoordinate = upperRightYCoordinate;
+    }
+
+    public int getLowerRightXCoordinate() {
+        return lowerRightXCoordinate;
+    }
+
+    public int getLowerRightYCoordinate() {
+        return lowerRightYCoordinate;
+    }
+
+
+    public int getUpperRightXCoordinate() {
+        return upperRightXCoordinate;
+    }
+
+    public int getUpperRightYCoordinate() {
+        return upperRightYCoordinate;
     }
 }
