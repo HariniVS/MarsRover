@@ -43,18 +43,18 @@ class RoverNavigation {
         newXCoordinate = roverCoordinates.getxCoordinate();
         newYCoordinate = roverCoordinates.getyCoordinate();
 
-        if (roverDirection == "N") {
-            newYCoordinate += 1;
-        }
-        if (roverDirection == "E") {
-            newXCoordinate += 1;
-        }
-        if (roverDirection == "S") {
-            newYCoordinate -= 1;
-        }
-        if (roverDirection == "W") {
-            newXCoordinate -= 1;
-        }
+         if (roverDirection.equals("N")) {
+             newYCoordinate += 1;
+         }
+         if (roverDirection.equals("E")) {
+             newXCoordinate += 1;
+         }
+         if (roverDirection.equals("S")) {
+             newYCoordinate -= 1;
+         }
+         if (roverDirection.equals("W")) {
+             newXCoordinate -= 1;
+         }
 
         roverCoordinates = new RoverCoordinates(newXCoordinate,newYCoordinate);
         return roverCoordinates;

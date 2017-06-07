@@ -62,7 +62,7 @@ public class MarsRoverTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldPass() {
+    public void shouldThrowAnException() {
         MarsPlateau plateau = new MarsPlateau(5, 5);
         MarsRover marsRover = new MarsRover(plateau);
         RoverCoordinates roverCoordinates = new RoverCoordinates(1,2);
