@@ -15,8 +15,8 @@ public class MarsRoverTest {
     public void createRoverPositionToSetRoverPosition() {
         MarsPlateau plateau = new MarsPlateau(5, 5);
         MarsRover marsRover = new MarsRover(plateau);
-        marsRover.setRoverPosition(1,2,"N");
-        assertEquals("1 2 N",marsRover.getRoverPosition());
+        marsRover.setRoverPosition(1, 2, "N");
+        assertEquals("1 2 N", marsRover.getRoverPosition());
     }
 
     @Test
@@ -25,8 +25,16 @@ public class MarsRoverTest {
         MarsRover marsRover = new MarsRover(plateau);
         marsRover.setRoverPosition(1, 2, "N");
         marsRover.shiftRoverDirection("L");
-        Assert.assertEquals("W",marsRover.getCurrentDirection());
+        Assert.assertEquals("W", marsRover.getCurrentDirection());
     }
 
+    @Test
+    public void shouldPerformRightTurnAndReturnDirectionAsEIfCurrentCommandIsN() {
+        MarsPlateau plateau = new MarsPlateau(5, 5);
+        MarsRover marsRover = new MarsRover(plateau);
+        marsRover.setRoverPosition(1, 2, "N");
+        marsRover.shiftRoverDirection("R");
+        Assert.assertEquals("E", marsRover.getCurrentDirection());
+    }
 
 }
