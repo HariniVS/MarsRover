@@ -5,34 +5,46 @@ public class MarsRover {
     private int xCoordinateToBeSet;
     private int yCoordinateToBeSet;
     RoverNavigation roverNavigation = new RoverNavigation();
+    private RoverCoordinates roverCoordinates;
 
     public MarsRover(MarsPlateau plateau) {
         this.plateau = plateau;
     }
 
     public String getRoverPosition() {
-        return roverPosition.xCoordinate+" "+roverPosition.yCoordinate+" "+roverPosition.roverDirection;
+        return roverPosition.xCoordinate + " " + roverPosition.yCoordinate + " " + roverPosition.roverDirection;
     }
 
-    public void setRoverPosition(int xCoordinate, int yCoordinate, String roverDirection) {
+    public void setRoverPosition(RoverCoordinates roverCoordinates, String roverDirection) {
 
-        this.xCoordinateToBeSet = xCoordinate;
-        this.yCoordinateToBeSet = yCoordinate;
+        this.roverCoordinates = roverCoordinates;
+        this.xCoordinateToBeSet = roverCoordinates.getxCoordinate();
+        this.yCoordinateToBeSet = roverCoordinates.getyCoordinate();
 
-        if (roverPositionValid()) {
-            roverPosition = new RoverPosition(xCoordinate, yCoordinate, roverDirection);
+        if (!roverPositionValid()) {
+            throw new IllegalArgumentException();
         }
+
+        roverPosition = new RoverPosition(xCoordinateToBeSet, yCoordinateToBeSet, roverDirection);
+        return;
     }
 
     private boolean roverPositionValid() {
-        return (xCoordinateToBeSet < plateau.getUpperRightXCoordinate() && yCoordinateToBeSet < plateau.getUpperRightYCoordinate());
+        boolean isValidUpperCoordinates = (xCoordinateToBeSet <= plateau.getUpperRightXCoordinate() && yCoordinateToBeSet <= plateau.getUpperRightYCoordinate());
+        boolean isValidLowerCoordinates = (xCoordinateToBeSet >= plateau.getLowerRightXCoordinate() && yCoordinateToBeSet >= plateau.getLowerRightYCoordinate());
+        return (isValidUpperCoordinates && isValidLowerCoordinates);
     }
-        
+
     public void shiftRoverDirection(String command) {
 
         for (int index = 0; index < command.length(); index++) {
             char currentCommand = command.charAt(index);
-            roverPosition.roverDirection = roverNavigation.shiftRoverDirection(currentCommand, roverPosition.roverDirection);
+            if (currentCommand == 'M') {
+                roverCoordinates = roverNavigation.moveForwardInCurrentDirection(roverCoordinates, roverPosition.roverDirection);
+            } else if (currentCommand == 'L' || currentCommand == 'R') {
+                roverPosition.roverDirection = roverNavigation.shiftRoverDirection(currentCommand, roverPosition.roverDirection);
+            }
+            setRoverPosition(roverCoordinates, roverPosition.roverDirection);
         }
 
     }

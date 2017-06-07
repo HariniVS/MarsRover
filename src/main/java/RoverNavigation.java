@@ -8,6 +8,11 @@ class RoverNavigation {
     private String roverDirection;
     private String directionToBeSet;
     private int currentIndex;
+    private int newYCoordinate;
+    private int newXCoordinate;
+    private MarsPlateau plateau;
+    private MarsRover marsRover;
+    private RoverCoordinates roverCoordinates;
 
     public String shiftRoverDirection(char currentCommand, String roverDirection) {
 
@@ -30,4 +35,29 @@ class RoverNavigation {
     private void rotateRightByNinetyDegree() {
         directionToBeSet = direction.get((currentIndex + direction.size() + 1) % 4);
     }
+
+     public RoverCoordinates moveForwardInCurrentDirection(RoverCoordinates roverCoordinates,String
+             roverDirection) {
+
+        this.roverDirection = roverDirection;
+        newXCoordinate = roverCoordinates.getxCoordinate();
+        newYCoordinate = roverCoordinates.getyCoordinate();
+
+        if (roverDirection == "N") {
+            newYCoordinate += 1;
+        }
+        if (roverDirection == "E") {
+            newXCoordinate += 1;
+        }
+        if (roverDirection == "S") {
+            newYCoordinate -= 1;
+        }
+        if (roverDirection == "W") {
+            newXCoordinate -= 1;
+        }
+
+        roverCoordinates = new RoverCoordinates(newXCoordinate,newYCoordinate);
+        return roverCoordinates;
+     }
+
 }
