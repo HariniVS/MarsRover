@@ -1,7 +1,7 @@
 public class MarsPlateau {
 
-    private int lowerRightXCoordinate;
-    private int lowerRightYCoordinate;
+    private int lowerRightXCoordinate = 0;
+    private int lowerRightYCoordinate = 0;
     private final int upperRightXCoordinate;
     private final int upperRightYCoordinate;
 
