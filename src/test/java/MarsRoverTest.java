@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -17,4 +18,15 @@ public class MarsRoverTest {
         marsRover.setRoverPosition(1,2,"N");
         assertEquals("1 2 N",marsRover.getRoverPosition());
     }
+
+    @Test
+    public void shouldPerformLeftTurnAndReturnDirectionAsWIfCurrentCommandIsN() {
+        MarsPlateau plateau = new MarsPlateau(5, 5);
+        MarsRover marsRover = new MarsRover(plateau);
+        marsRover.setRoverPosition(1, 2, "N");
+        marsRover.shiftRoverDirection("L");
+        Assert.assertEquals("W",marsRover.getCurrentDirection());
+    }
+
+
 }
