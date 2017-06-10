@@ -20,7 +20,7 @@ apply plugin: 'idea'
 apply plugin: 'docker'
 apply plugin: 'org.springframework.boot'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.7
 
 repositories {
     mavenCentral()
@@ -46,12 +46,12 @@ idea {
 task buildDocker(type: Docker, dependsOn: build) {
     push = true
     applicationName = war.baseName.toLowerCase()
-    dockerfile = file('dockerFile')
+    dockerfile = file('DockerFile')
     doFirst {
         copy {
             from war.archivePath
             into stageDir
         }
     }
-    tag = 'harinivs/evenoroddassertion'
+    tag = 'harinivs/marsrover'
 }
