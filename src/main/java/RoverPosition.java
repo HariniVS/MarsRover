@@ -1,10 +1,13 @@
-public class RoverCoordinates {
+
+public class RoverPosition {
+    private String roverDirection;
     private int yCoordinate;
     private int xCoordinate;
 
-    public RoverCoordinates(int xCoordinate, int yCoordinate) {
+    public RoverPosition(int xCoordinate, int yCoordinate, String roverDirection) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        this.roverDirection = roverDirection;
     }
 
     public int getyCoordinate() {
@@ -13,5 +16,9 @@ public class RoverCoordinates {
 
     public int getxCoordinate() {
         return xCoordinate;
+    }
+
+    public String getRoverDirection() {
+        return roverDirection;
     }
 }

@@ -1,2 +1,9 @@
 .idea/workspace.xml
 out/
+build/
+.gradle/
+.idea/libraries/
+.idea/**/uiDesigner.xml
+
+# Gradle:
+.idea/**/gradle.xml

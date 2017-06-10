@@ -5,53 +5,47 @@ class RoverNavigation {
 
     ArrayList<String> direction = new ArrayList<String>(Arrays.asList("N", "E", "S", "W"));
 
-    private String directionToBeSet;
+    private int currentYCoordinate;
+    private int currentXCoordinate;
+    private String currentRoverDirection;
+    private RoverPosition roverPosition;
     private int currentIndex;
-    private int newYCoordinate;
-    private int newXCoordinate;
 
-    public String shiftRoverDirection(char currentCommand, String roverDirection) {
 
-        currentIndex = direction.indexOf(roverDirection);
+    public RoverNavigation(RoverPosition roverPosition) {
 
-        if (currentCommand == 'L') {
-            rotateLeftByNinetyDegree();
+        this.roverPosition = roverPosition;
+
+        currentXCoordinate = roverPosition.getxCoordinate();
+        currentYCoordinate = roverPosition.getyCoordinate();
+        currentRoverDirection = roverPosition.getRoverDirection();
+        currentIndex = direction.indexOf(currentRoverDirection);
+    }
+
+    public RoverPosition move() {
+        if (currentRoverDirection.equals("N")) {
+            currentYCoordinate += 1;
         }
-        if (currentCommand == 'R') {
-            rotateRightByNinetyDegree();
+        if (currentRoverDirection.equals("E")) {
+            currentXCoordinate += 1;
         }
-        return directionToBeSet;
+        if (currentRoverDirection.equals("S")) {
+            currentYCoordinate -= 1;
+        }
+        if (currentRoverDirection.equals("W")) {
+            currentXCoordinate -= 1;
+        }
+        return new RoverPosition(currentXCoordinate, currentYCoordinate, currentRoverDirection);
     }
 
-    private void rotateLeftByNinetyDegree() {
-        directionToBeSet = direction.get((currentIndex + direction.size() - 1) % 4);
+    public RoverPosition turnLeft() {
+        currentRoverDirection = direction.get((currentIndex + direction.size() - 1) % 4);
+        return new RoverPosition(currentXCoordinate, currentYCoordinate, currentRoverDirection);
     }
 
-    private void rotateRightByNinetyDegree() {
-        directionToBeSet = direction.get((currentIndex + direction.size() + 1) % 4);
+    public RoverPosition turnRight() {
+        currentRoverDirection = direction.get((currentIndex + direction.size() + 1) % 4);
+        return new RoverPosition(currentXCoordinate, currentYCoordinate, currentRoverDirection);
     }
-
-     public RoverCoordinates moveForwardInCurrentDirection(RoverCoordinates roverCoordinates,String
-             roverDirection) {
-
-        newXCoordinate = roverCoordinates.getxCoordinate();
-        newYCoordinate = roverCoordinates.getyCoordinate();
-
-         if (roverDirection.equals("N")) {
-             newYCoordinate += 1;
-         }
-         if (roverDirection.equals("E")) {
-             newXCoordinate += 1;
-         }
-         if (roverDirection.equals("S")) {
-             newYCoordinate -= 1;
-         }
-         if (roverDirection.equals("W")) {
-             newXCoordinate -= 1;
-         }
-
-        roverCoordinates = new RoverCoordinates(newXCoordinate,newYCoordinate);
-        return roverCoordinates;
-     }
 
 }

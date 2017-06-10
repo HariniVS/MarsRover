@@ -1,65 +1,44 @@
-import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MarsRover {
 
     private MarsPlateau plateau;
-    private RoverNavigation roverNavigation = new RoverNavigation();
-    private RoverCoordinates roverCoordinates;
-    private String roverDirection;
+    private RoverPosition roverPosition;
 
     public MarsRover(MarsPlateau plateau) {
         this.plateau = plateau;
+
     }
 
-    public String getRoverPosition() {
-        return roverCoordinates.getxCoordinate() + " " + roverCoordinates.getyCoordinate() + " " + roverDirection;
-    }
-
-    public void setRoverPosition(RoverCoordinates roverCoordinates, String roverDirection) {
-
-        this.roverDirection = roverDirection;
-        this.roverCoordinates = roverCoordinates;
-
-        if (!roverPositionValid()) {
-            throw new IllegalArgumentException();
+    public void setRoverPosition(RoverPosition roverPosition) {
+        if (plateau.isRoverPositionValid(roverPosition)) {
+            this.roverPosition = roverPosition;
         }
     }
 
-    private boolean roverPositionValid() {
-        boolean isValidUpperCoordinates = (roverCoordinates.getxCoordinate() <= plateau.getUpperRightXCoordinate() && roverCoordinates.getyCoordinate() <= plateau.getUpperRightYCoordinate());
-        boolean isValidLowerCoordinates = (roverCoordinates.getxCoordinate() >= plateau.getLowerRightXCoordinate() && roverCoordinates.getyCoordinate() >= plateau.getLowerRightYCoordinate());
-        return (isValidUpperCoordinates && isValidLowerCoordinates);
-    }
+    public void executeCommand(String command) {
 
-    public void shiftRoverDirection(String command) {
+        Map<Character, RoverCommand> roverCommands = new HashMap<Character, RoverCommand>();
+        roverCommands.put('L', new TurnLeft());
+        roverCommands.put('R', new TurnRight());
+        roverCommands.put('M', new Move());
 
         for (int index = 0; index < command.length(); index++) {
             char currentCommand = command.charAt(index);
-            if (currentCommand == 'M') {
-                roverCoordinates = roverNavigation.moveForwardInCurrentDirection(roverCoordinates, roverDirection);
-            } else if (currentCommand == 'L' || currentCommand == 'R') {
-                roverDirection = roverNavigation.shiftRoverDirection(currentCommand, roverDirection);
-            }
-            setRoverPosition(roverCoordinates, roverDirection);
+            RoverCommand commandToBeExecuted = roverCommands.get(currentCommand);
+            RoverPosition position = commandToBeExecuted.getNewPosition(roverPosition);
+            setRoverPosition(position);
         }
 
     }
 
     public String getCurrentDirection() {
-        return roverDirection;
+        return roverPosition.getRoverDirection();
     }
 
-    public static void main(String[] args) {
-        Scanner scannerObject = new Scanner(System.in);
-        MarsPlateau plateau = new MarsPlateau(scannerObject.nextInt(), scannerObject.nextInt());
-        MarsRover marsRover = new MarsRover(plateau);
-        RoverCoordinates roverCoordinates;
-        while (scannerObject.hasNext()) {
-            roverCoordinates = new RoverCoordinates(scannerObject.nextInt(),scannerObject.nextInt());
-            marsRover.setRoverPosition(roverCoordinates, scannerObject.next());
-            marsRover.shiftRoverDirection(scannerObject.next());
-            System.out.println(marsRover.getRoverPosition());
-        }
+    public String getRoverPosition() {
+        return String.format(roverPosition.getxCoordinate() + " " + roverPosition.getyCoordinate() + " " + roverPosition.getRoverDirection());
     }
 }
 
