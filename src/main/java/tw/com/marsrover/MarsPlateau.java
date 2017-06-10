@@ -1,3 +1,5 @@
+package tw.com.marsrover;
+
 public class MarsPlateau {
 
     private int lowerRightXCoordinate = 0;

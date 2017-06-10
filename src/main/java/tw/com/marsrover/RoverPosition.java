@@ -1,3 +1,4 @@
+package tw.com.marsrover;
 
 public class RoverPosition {
     private String roverDirection;
