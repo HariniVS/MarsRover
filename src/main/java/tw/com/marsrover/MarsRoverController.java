@@ -8,6 +8,6 @@ class MarsRoverController {
 
     @RequestMapping()
     public String index() {
-        return "Have a happy day";
+        return "Have a happy day..:) Hard work always pays off..Start now and never stop";
     }
 }
